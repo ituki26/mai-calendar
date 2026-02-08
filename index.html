@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+
+		<link rel="stylesheet" href="style.css">
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c&display=swap" rel="stylesheet">
+        <title>Calendar</title>
+    </head>
+
+    <body spellcheck="false">
+        <main>
+            <div class="calendar">
+                <div class="calendar-header">
+                    <button id="previous-month" style="padding-left: 2%"></button>
+                    <div class="calendar-head" id="month-year"></div>
+                    <button id="next-month" style="padding-right: 2%;"></button>
+                </div>
+                
+                <div class="calendar-body">
+                    <div class="calendar-days">
+                        <div class="days weekday">Mon</div>
+                        <div class="days weekday">Tue</div>
+                        <div class="days weekday">Wed</div>
+                        <div class="days weekday">Thu</div>
+                        <div class="days weekday">Fri</div>
+                        <div class="days weekend">Sat</div>
+                        <div class="days weekend">Sun</div>
+                    </div>
+
+                    <div class="calendar-dates">
+                        <!-- Dates will be populated here -->
+                    </div>
+                </div>
+            </div>
+			
+			<section class="right-section">
+				<div class="events">
+					<h2>イベントリスト</h2>
+					<ul id="event-list">
+					</ul>
+				</div>	
+			
+				<div class="delete">
+					<h3>解除</h3>
+				</div>	
+				
+				<div id="clearBtn">Clear All</div>
+			</section>
+			
+
+			<script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
+			<script src="events.js"></script>
+			<script src="calendar.js"></script>
+        </main>
+    </body>
+
+</html>
