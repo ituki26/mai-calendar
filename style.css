@@ -175,6 +175,12 @@ main{
 	text-align: center;
 }
 
+#clearBtn{
+	margin: 0 auto;
+	margin-top: 10px;
+	cursor: pointer;
+}
+
 #past{
 	background-color: rgb(213, 255, 213, 0.4);
 }
