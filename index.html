@@ -1,24 +1,28 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" data-theme="dark">
     <head>
         <meta charset="UTF-8">
 
-		<link rel="stylesheet" href="./style.css">
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=close,dark_mode,light_mode" rel="stylesheet">
+
+		<link rel="stylesheet" href="./style.css">
+        <link rel="stylesheet" href="./theme.css">
         <title>Calendar</title>
     </head>
 
     <body spellcheck="false">
+
+        <header>
+            <button id="previous-month"></button>
+            <div class="calendar-head" id="month-year"></div>
+            <button id="next-month"></button>
+        </header>
+
         <main>
             <div class="calendar">
-                <div class="calendar-header">
-                    <button id="previous-month" style="padding-left: 2%"></button>
-                    <div class="calendar-head" id="month-year"></div>
-                    <button id="next-month" style="padding-right: 2%;"></button>
-                </div>
-                
                 <div class="calendar-body">
                     <div class="calendar-days">
                         <div class="days weekday">Mon</div>
@@ -37,8 +41,9 @@
             </div>
 			
 			<section class="right-section">
-				<div class="events">
-					<h2>イベントリスト</h2>
+				<button type="button" id="createEvent" style="margin-top: 30px; font-size: 30px; cursor: pointer;">New Event</button>
+
+                <div class="events">
 					<ul id="event-list">
 					</ul>
 				</div>	
@@ -46,15 +51,44 @@
 				<div class="delete">
 					<h3>解除</h3>
 				</div>	
-				
-				<div id="clearBtn">Clear All</div>
+			    
+				<div id="clearBtn" style="text-decoration: underline;">Clear Calendar</div>
+                <button style="position:absolute; bottom: 10px; right: 10px;" type="button" data-theme-toggle><span class="material-symbols-outlined" id="icon">dark_mode</span></button>
 			</section>
-			
-
-			<script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
-			<script src="./events.js"></script>
-			<script src="./calendar.js"></script>
         </main>
+
+        <div class="modal" id="modalWrapper">
+            <div class="modal-window">
+                <div class="modal-header">
+                    <span class="material-symbols-outlined" id="close">close</span>
+                </div>
+                <form class="modal-body">
+                    <div class="modal-row">
+                        <label for="eventTitle">Title</label>
+                        <input type="text" id="eventTitle" placeholder="Title">
+                    </div>
+                    <div class="modal-row">
+                        <label for="dateStart">Start Date</label>
+                        <input type="date" id="dateStart"><br>
+                        <label for="dateEnd">End Date</label>
+                        <input type="date" id="dateEnd">
+                    </div>
+                    <div class="modal-row">
+                        <label for="description" style="margin-bottom: 10px;">Description</label>
+                        <textarea id="description" style="resize: none;"></textarea>
+                    </div>
+                </form>
+
+                <div class="modal-footer">
+                    <button type="button" id="createBtn">Create</button>
+                </div>
+            </div>
+        </div>
     </body>
 
+    <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
+    <script src="./events.js"></script>
+    <script src="./calendar.js"></script>
+    <script src="./theme.js"></script>
+    <script src="./modal.js"></script>
 </html>

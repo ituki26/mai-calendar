@@ -1,6 +1,6 @@
-const eventItems = ['資格試験', '予定', '課題']
-const eventColors = ['blue', 'yellow', 'green']
+const eventItems = [];
 const STORAGE_KEY = "calendarData";
+const createBtn = document.getElementById("createBtn");
 
 function saveData(monthKey){
 	const all = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
@@ -58,7 +58,7 @@ window.initDropzones = function initDropzones(){
 			const dragEvent = event.relatedTarget;
 			
 			if(!dragEvent.id || dragEvent.id.startsWith('event-')){
-			  	dragEvent.dataset.uid = crypto.randomUUID();
+				dragEvent.dataset.uid = crypto.randomUUID();
 			  	dragEvent.id = 'placed';
 			}
 
@@ -85,6 +85,10 @@ window.initDropzones = function initDropzones(){
 			calendarData[newDay].push({ uid: dragEvent.dataset.uid, title, text });
 
 			dragEvent.dataset.day = newDay;
+			const eventIndex = eventItems.indexOf(title);
+			if(eventIndex > -1){
+				eventItems.splice(eventIndex, 1);
+			}
 			
 			saveData(window.currentMonthKey);			
 			createEvent();
@@ -98,8 +102,7 @@ function initDelzone(){
 		accept: '.event',
 		ondrop(event){
 			const dragEvent = event.relatedTarget;
-			
-			
+						
 			for(const d in calendarData){
 				calendarData[d] = calendarData[d].filter(e => e.uid !== dragEvent.dataset.uid);
 				if(calendarData[d].length === 0) delete calendarData[d];
@@ -129,31 +132,31 @@ function createEvent(){
 			return;
 		}
 		
-		const newListItem = document.createElement('li');
-		const newEvent = document.createElement('div');
-		const newTitle = document.createElement('div');
-		const newContent = document.createElement('p');
+		// const newListItem = document.createElement('li');
+		// const newEvent = document.createElement('div');
+		// const newTitle = document.createElement('div');
+		// const newContent = document.createElement('p');
 		
-		newEvent.id = currID;
-		newEvent.classList.add('event');
-		newEvent.dataset.type = index;
+		// newEvent.id = currID;
+		// newEvent.classList.add('event');
+		// newEvent.dataset.type = index;
 		
-		newTitle.classList.add('title');
-		newTitle.style.backgroundColor = 'none';
-		newTitle.textContent = item;
+		// newTitle.classList.add('title');
+		// newTitle.style.backgroundColor = 'none';
+		// newTitle.textContent = item;
 		
-		newContent.classList.add('content');
-		newContent.style.display = 'none';
-		newContent.contentEditable = 'true';
-		newContent.addEventListener('blur', () => saveText(newContent));
-		newContent.textContent = "内容";
+		// newContent.classList.add('content');
+		// newContent.style.display = 'none';
+		// newContent.contentEditable = 'true';
+		// newContent.addEventListener('blur', () => saveText(newContent));
+		// newContent.textContent = "内容";
 		
-		newTitle.addEventListener('click', displayContent);
+		// newTitle.addEventListener('click', displayContent);
 
-		newEvent.appendChild(newTitle);
-		newEvent.appendChild(newContent);
-		newListItem.appendChild(newEvent);	
-		eventList.insertBefore(newListItem, eventList.children[index] || null);
+		// newEvent.appendChild(newTitle);
+		// newEvent.appendChild(newContent);
+		// // newListItem.appendChild(newEvent);	
+		// eventList.insertBefore(newListItem, eventList.children[index] || null);
 	});
 }
 
@@ -173,7 +176,6 @@ window.retrieveEvents = function retrieveEvents(){
 			const event = document.createElement('div');
 			event.className = 'event';
 			event.id = 'placed';
-			event.dataset.uid = data.uid;
 			event.dataset.day = date;
 			
 			const title = document.createElement('div');
@@ -219,6 +221,50 @@ function displayContent(event){
 	const content = btn.nextElementSibling;
 	content.style.display = content.style.display === "block" ? "none" : "block";
 }
+
+createBtn.addEventListener("click", () => {
+	const eventList = document.getElementById('event-list');
+
+	const eventTitle = document.getElementById("eventTitle").value;
+	const startDate = document.getElementById("dateStart").value;
+	const endDate = document.getElementById("dateEnd").value;
+	const description = document.getElementById("description").value;
+
+	if(eventTitle == ""){
+		return;
+	}
+	else{
+	const newListItem = document.createElement('li');
+	const newEvent = document.createElement('div');
+	const newTitle = document.createElement('div');
+	const newContent = document.createElement('p');
+		
+	newEvent.classList.add('event');
+	newEvent.dataset.type = eventItems.length;
+	
+	newTitle.classList.add('title');
+	newTitle.style.backgroundColor = 'none';
+	newTitle.textContent = eventTitle;
+	
+	newContent.classList.add('content');
+	newContent.style.display = 'none';
+	newContent.contentEditable = 'true';
+	newContent.addEventListener('blur', () => saveText(newContent));
+	newContent.textContent = description;
+	
+	newTitle.addEventListener('click', displayContent);
+
+	newEvent.appendChild(newTitle);
+	newEvent.appendChild(newContent);
+	newListItem.appendChild(newEvent);
+	newListItem.className = "new";
+	eventList.appendChild(newListItem);
+	eventItems.push(eventTitle);
+
+	popupWindow.style.display = "none";
+	
+	}
+});
 
 window.onload = () => {
 	createEvent();
