@@ -8,6 +8,7 @@
     --color-overlay-2: rgba(0, 0, 0, 0.05);
     --color-highlight-1: rgba(213, 244, 255, 0.4);
     --color-highlight-2: rgba(167, 232, 255, 0.9);
+    --color-highlight-3: rgba(167, 232, 255, 0.9);
     
 }
 
@@ -21,6 +22,7 @@
     --color-overlay-4: rgba(255, 255, 255, 0.05);
     --color-highlight-1: rgba(213, 244, 255, 0.2);
     --color-highlight-2: rgba(213, 244, 255, 0.4);
+    --color-highlight-3: rgba(213, 244, 255, 0.9);
 }
 
 body{
@@ -84,4 +86,8 @@ header button{
 
 .delete{
     border-color: var(--color-text);
+}
+
+.event .title{
+    background-color: var(--color-highlight-1);
 }

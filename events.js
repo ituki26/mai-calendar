@@ -69,6 +69,7 @@ window.initDropzones = function initDropzones(){
 			
 			const title = dragEvent.querySelector('.title').textContent;
 			const text = dragEvent.querySelector('.content').textContent;
+			const color = dragEvent.style.backgroundColor;
 			
 			const full = targetDrop.parentElement.dataset.date;
 			const newDay = full.split('-')[2];
@@ -82,7 +83,7 @@ window.initDropzones = function initDropzones(){
 			}
 			
 			if(!calendarData[newDay]) calendarData[newDay] = [];
-			calendarData[newDay].push({ uid: dragEvent.dataset.uid, title, text });
+			calendarData[newDay].push({ uid: dragEvent.dataset.uid, title, text, color, dragEvent});
 
 			dragEvent.dataset.day = newDay;
 			const eventIndex = eventItems.indexOf(title);
@@ -176,6 +177,7 @@ window.retrieveEvents = function retrieveEvents(){
 			const event = document.createElement('div');
 			event.className = 'event';
 			event.id = 'placed';
+			event.style.backgroundColor = data.color;
 			event.dataset.day = date;
 			
 			const title = document.createElement('div');
@@ -228,6 +230,7 @@ createBtn.addEventListener("click", () => {
 	const eventTitle = document.getElementById("eventTitle").value;
 	const startDate = document.getElementById("dateStart").value;
 	const endDate = document.getElementById("dateEnd").value;
+	const colorInput = document.getElementById("colorPicker").value;
 	const description = document.getElementById("description").value;
 
 	if(eventTitle == ""){
@@ -241,6 +244,7 @@ createBtn.addEventListener("click", () => {
 		
 	newEvent.classList.add('event');
 	newEvent.dataset.type = eventItems.length;
+	newEvent.style.backgroundColor = colorInput;
 	
 	newTitle.classList.add('title');
 	newTitle.style.backgroundColor = 'none';
@@ -262,7 +266,6 @@ createBtn.addEventListener("click", () => {
 	eventItems.push(eventTitle);
 
 	popupWindow.style.display = "none";
-	
 	}
 });
 
